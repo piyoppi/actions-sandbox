@@ -15,4 +15,4 @@ jobs:
           echo '# test' >> test.md
           git add test.md
           git commit -m 'test commit'
-          git push origin main
+          git push origin master
