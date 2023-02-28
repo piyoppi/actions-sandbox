@@ -10,6 +10,8 @@ jobs:
         with:
           repository: 'piyoppi/actions-sandbox.wiki'
       - run: |
+          git config --global user.email "bot@garakuta-toolbox.com"
+          git config --global user.name "piyoppi-bot"
           echo '# test' >> test.md
           git add test.md
           git commit -m 'test commit'
