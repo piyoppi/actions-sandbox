@@ -8,8 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: 'piyoppi/actions-sandbox.wiki.git'
-          token: ${{ secrets.TOKEN }}
+          repository: 'piyoppi/actions-sandbox.wiki'
       - run: |
           echo '# test' >> test.md
           git add test.md
