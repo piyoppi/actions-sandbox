@@ -1,0 +1,27 @@
+name: Testing actions-cron2docs
+
+on: workflow_dispatch
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/checkout@v3
+        with:
+          repository: 'piyoppi/actions-sandbox.wiki'
+          path: wiki
+
+      - uses: piyoppi/actions-cron2docs@mirrored
+        with:
+          cron_file: ./actions-cron2docs/crontab.txt
+          output_filename: ./wiki/docs.md
+
+      - run: |
+          git config --global user.email "bot@garakuta-toolbox.com"
+          git config --global user.name "piyoppi-bot"
+          git add docs.md
+          git commit -m 'test commit'
+          git push origin master
+        working-directory: ./wiki
