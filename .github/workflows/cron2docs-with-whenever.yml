@@ -28,6 +28,7 @@ jobs:
         with:
           cron_file: ./actions-cron2docs-whenever/crontab.txt
           output_filename: ./wiki/docs_from_whenever.md
+          document_yaml_filename: ./actions-cron2docs-whenever/docs/job_docs.yml
 
       - run: |
           git config --global user.email "bot@garakuta-toolbox.com"
