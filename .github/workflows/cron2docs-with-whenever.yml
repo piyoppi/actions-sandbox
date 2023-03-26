@@ -26,6 +26,8 @@ jobs:
 
       - uses: piyoppi/actions-cron2docs@mirrored
         with:
+          task_dirs: ${{ github.workspace }}/actions-cron2docs-whenever/src
+          relative_path_base_dir: ${{ github.workspace }}/actions-cron2docs-whenever
           cron_file: ./actions-cron2docs-whenever/crontab.txt
           output_filename: ./wiki/docs_from_whenever.md
           document_yaml_filename: ./actions-cron2docs-whenever/docs/job_docs.yml
