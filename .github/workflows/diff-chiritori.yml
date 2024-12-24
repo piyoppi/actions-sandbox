@@ -1,6 +1,6 @@
 name: Testing attach-annotation-actions-chiritori
 
-on: push
+on: pull_request
 
 env:
   FILE_PATTERN: '*.html'
@@ -9,7 +9,17 @@ jobs:
   remove-time-limited:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with: 
+          ref: ${{github.base_ref}}
+
+      - run: echo BASE_SHA=`git rev-parse HEAD` >> $GITHUB_ENV
+
+      - uses: actions/checkout@v4
+        with: 
+          ref: ${{github.sha }}
+
+      - run: git diff ${{ env.BASE_SHA }}..${{ github.sha }}
 
       - uses: piyoppi/actions-chiritori@update-chiritori-v1.4.0
         with:
@@ -19,3 +29,11 @@ jobs:
           run-mode: "list-all"
           target-file-mode: "diff"
           report-mode: "annotation"
+          base-ref: ${{ env.BASE_SHA }}
+
+      - uses: piyoppi/actions-chiritori@update-chiritori-v1.4.0
+        with:
+          filepattern: ${{ env.FILE_PATTERN }}
+          delimiter-start: "<!--"
+          delimiter-end: "-->"
+          run-mode: "list-all"
