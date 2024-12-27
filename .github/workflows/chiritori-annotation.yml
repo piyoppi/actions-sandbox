@@ -1,0 +1,30 @@
+name: Annotate removal-marker in pull request diff
+
+on: pull_request
+
+env:
+  FILE_PATTERN: '*.html'
+
+jobs:
+  remove-time-limited:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+
+      - run: echo BASE_SHA=`git rev-parse HEAD` >> $GITHUB_ENV
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - uses: piyoppi/actions-chiritori@update-chiritori-v1.4.0
+        with:
+          filepattern: ${{ env.FILE_PATTERN }}
+          delimiter-start: "<!--"
+          delimiter-end: "-->"
+          run-mode: "list-all"
+          target-file-mode: "diff"
+          report-mode: "annotation"
+          base-sha: ${{ env.BASE_SHA }}
