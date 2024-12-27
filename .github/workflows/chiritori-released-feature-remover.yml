@@ -9,6 +9,7 @@ on:
         type: string
 
 env:
+  BRANCH_NAME: removal-marker-${{ github.sha }}
   FILE_PATTERN: '*.html'
 
 jobs:
@@ -40,9 +41,9 @@ jobs:
         with:
           script: |
             await github.rest.pulls.create({
-              owner: 'owner',
-              repo: 'owners-repo',
-              title: 'Remove time-limited by chiritori',
+              owner: 'piyoppi',
+              repo: 'actions-sandbox',
+              title: 'Remove Release-triggered by chiritori',
               head: `${{ env.BRANCH_NAME }}`,
               base: 'main'
             });
