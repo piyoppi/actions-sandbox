@@ -9,6 +9,7 @@ on:
         type: string
 
 env:
+  BRANCH_NAME: removal-marker-${{ github.sha }}
   FILE_PATTERN: '*.html'
 
 jobs:
